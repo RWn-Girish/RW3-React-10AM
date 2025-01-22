@@ -3,12 +3,19 @@ import CompA from "./ComA";
 
 const Counter = () => {
     const [count, setCount] = useState(0);
+    const [name, setName] = useState("");
     
-    const handleInc = () => {
+    const handleInc = (a) => {
+        setName(a);
         setCount(count + 1)
     }
-    const handleDec = () => {
+    const handleDec = (a) => {
+        setName(a);
         setCount(count - 1)
+    }
+
+    const handleMouse = () => {
+        alert('Mouse Event')
     }
 
     useEffect(()=> {
@@ -22,7 +29,8 @@ const Counter = () => {
     }, [count])
     return (
         <div>
-            <h2>Count : {count}</h2>
+            <h2 onMouseOver={handleMouse}>Count : {count}</h2>
+            {name != "" ? <h2>Name : {name}</h2> : ""}
             <CompA name={"Increment"} handleClick={handleInc} />
             <CompA name={"Decrement"} handleClick={handleDec} />
         </div>
