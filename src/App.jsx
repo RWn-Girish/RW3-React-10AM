@@ -5,6 +5,7 @@ import ListComp from './Components/List';
 import React from 'react';
 import Controll from './Components/Controll/Controll';
 import Uncontroll from './Components/Controll/UnControll';
+import Validation from './Components/Validation/Validation';
 
 function App() {
 
@@ -14,7 +15,8 @@ function App() {
        {/* <Counter /> */}
        {/* <ListComp /> */}
        {/* <Controll /> */}
-       <Uncontroll />
+       {/* <Uncontroll /> */}
+       <Validation />
        </>
   )
 }
