@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Validation = () => {
+const Validation = ({user}) => {
   const [userInput, setUserInput] = useState({
     fname: "",
     email: "",
@@ -56,7 +56,7 @@ const Validation = () => {
   };
   return (
     <>
-      <h2>User Registration</h2>
+      <h2>{user}</h2>
       <form onSubmit={handleSubmit}>
         <lable>Full Name: </lable>
         <input
