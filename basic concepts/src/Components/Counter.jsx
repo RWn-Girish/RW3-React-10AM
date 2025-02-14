@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react"
 import CompA from "./ComA";
+import { useParams } from "react-router";
 
 const Counter = () => {
+
+    const {name} = useParams()
     const [count, setCount] = useState(0);
-    const [name, setName] = useState("");
+    // const [name, setName] = useState("");
     
     const handleInc = (a) => {
-        setName(a);
+        // setName(a);
         setCount(count + 1)
     }
     const handleDec = (a) => {
-        setName(a);
+        // setName(a);
         setCount(count - 1)
     }
 
