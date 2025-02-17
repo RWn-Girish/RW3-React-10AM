@@ -1,23 +1,46 @@
 import { useState } from "react";
-import { getOldStorage } from "../Services/localStorageData";
+import { getOldStorage, setLocalStorageData } from "../Services/localStorageData";
 import { Button, Card, Container, Table } from "react-bootstrap";
+import {FaEye, FaPenToSquare, FaTrash} from 'react-icons/fa6'
+import { useNavigate } from "react-router";
+
 
 const Home = () => {
+    const navigate = useNavigate();
     const [products, setProducts] = useState(getOldStorage());
+
+    const handleView = (id) => {
+      navigate(`/view/${id}`);
+    }
+    const handleEdit = (id) => {
+      navigate(`/edit/${id}`);
+    }
+
+    const handleDelete = (id) => {
+      let updatedData = products.filter((product) => product.id != id);
+      setProducts(updatedData);
+      setLocalStorageData(updatedData)
+    }
     return (
         <>
-            <Container>
+            <Container className="d-flex gap-4 mt-4" >
                 {products.map((product) => (
-                    <Card style={{ width: '18rem' }}>
+                    <Card key={product.id}  style={{ width: '18rem' }}>
                     <Card.Img variant="top" src={product.image} />
                     <Card.Body>
                       <Card.Title>{product.title}</Card.Title>
                       <Card.Text>
-                        {product.description}
+                        {product.desc}
                       </Card.Text>
-                      <Button variant="primary">View</Button>
-                      <Button variant="secondary">Edit</Button>
-                      <Button variant="danger">Delete</Button>
+                      <Button onClick={() => handleView(product.id)} variant="primary">
+                        <FaEye />
+                        </Button> &nbsp;
+                      <Button onClick={() => handleEdit(product.id)} variant="secondary">
+                        <FaPenToSquare />
+                        </Button> &nbsp;
+                      <Button onClick={()=> handleDelete(product.id)} variant="danger">
+                        <FaTrash />
+                      </Button>
                     </Card.Body>
                   </Card>
                 ))}

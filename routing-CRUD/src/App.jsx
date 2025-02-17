@@ -6,6 +6,7 @@ import Header from './Components/Header'
 import { Route, Routes } from 'react-router'
 import Home from './Components/Home'
 import AddProduct from './Components/AddProduct'
+import EditProduct from './Components/EditProduct'
 
 function App() {
 
@@ -15,6 +16,8 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/add' element={<AddProduct />} />
+        <Route path='/edit/:id' element={<EditProduct />} />
+        {/* <Route path='/view/:id' element={<EditProduct />} /> */}
       </Routes>
     </>
   )
