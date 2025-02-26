@@ -9,6 +9,7 @@ import Validation from './Components/Validation/Validation';
 import HOC from './Components/HOC/HOC';
 import { Link, Route, Routes, useNavigate } from 'react-router';
 import Callback from './Components/UseCallback/Callback';
+import CounterComp from './Components/UseReducer/Counter';
 
 let HOCValidate = HOC(Validation)
 let HOCControll = HOC(Controll);
@@ -49,7 +50,8 @@ function App() {
         <button onClick={handleCounter}>Counter</button>
         <button onClick={handleAbout}>About</button> */}
        <Routes>
-          <Route path='/' element= { <Callback />} />
+          <Route path='/' element= { <CounterComp />} />
+          {/* <Route path='/' element= { <Callback />} /> */}
           {/* <Route path='/' element= {<HOCControll isLoading={isLoading} />} /> */}
           <Route path='/about/' element= {<h1>About page</h1>} />
           <Route path='/counter/:name' element= {<Counter />} />
