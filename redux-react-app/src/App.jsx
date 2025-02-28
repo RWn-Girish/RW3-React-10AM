@@ -1,15 +1,18 @@
 import { Route, Routes } from 'react-router'
 import './App.css'
-import Counter from './components/Counter'
-import Hello from './components/Hello'
+import Header from './components/Header'
+import Home from './components/Home'
+import AddRecipe from './components/AddRecipe'
 
 function App() {
 
   return (
     <>
+    <Header />
       <Routes>
-        <Route path='/' element={<Counter />} />
-        <Route path='/hello' element={<Hello />} />
+        <Route path='/' element={<Home />} />
+        <Route path='/add' element={<AddRecipe />} />
+        
       </Routes>
     </>
   )
