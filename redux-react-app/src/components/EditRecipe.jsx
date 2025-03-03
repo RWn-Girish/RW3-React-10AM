@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { Col, Container, Row, Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux'
-import { addRecipe } from "../services/actions/recipe.action";
-import { useNavigate } from "react-router";
+import { addRecipe, getRecipe, updateRecipe } from "../services/actions/recipe.action";
+import { useNavigate, useParams } from "react-router";
 
 
-const AddRecipe = () => {
+const EditRecipe = () => {
+    const { id } = useParams();
     const dispatch = useDispatch();
-    const { isCreated } = useSelector(state => state.recipeReducer);
+    const { recipe, isUpdate } = useSelector(state => state.recipeReducer);
     const navigate = useNavigate();
     const [inputData, setInputData] = useState({
         id: "",
@@ -28,20 +29,31 @@ const AddRecipe = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // console.log(inputData);
-        let id = Math.floor(Math.random() * 100000)
-        dispatch(addRecipe({ ...inputData, id }))
+
+        dispatch(updateRecipe(inputData))
     }
 
     useEffect(() => {
-        if(isCreated){
+        if(isUpdate){
             navigate("/")
         }
-    }, [isCreated]);
+    }, [isUpdate])
+
+    useEffect(() => {
+        if(id){
+            dispatch(getRecipe(id))
+        }
+    }, [id]);
+
+    useEffect(() => {
+        if(recipe){
+            setInputData(recipe)
+        }
+    }, [recipe])
     return (
         <>
             <Container className="mt-3">
-                <h2 className="mb-4">Add Recipe</h2>
+                <h2 className="mb-4">Edit Recipe</h2>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group as={Row} className="mb-3">
                         <Form.Label column sm="2">
@@ -90,11 +102,11 @@ const AddRecipe = () => {
                             </Form.Select>
                         </Col>
                     </Form.Group>
-                    <Button type="submit">Add Recipe</Button>
+                    <Button type="submit">Edit Recipe</Button>
                 </Form>
             </Container>
         </>
     )
 };
 
-export default AddRecipe;
+export default EditRecipe;

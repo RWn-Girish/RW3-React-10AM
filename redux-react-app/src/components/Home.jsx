@@ -1,13 +1,57 @@
-import { Container } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { Button, Container, Table } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteRecipe, getAllRecipes } from "../services/actions/recipe.action";
+import { useNavigate } from "react-router";
 
 const Home = () => {
-    const { recipes } = useSelector(state => state.recipeReducer)
-    console.log("Recipes: ", recipes);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { recipes } = useSelector(state => state.recipeReducer);
+
+    const handleEdit = (id) => {
+        navigate(`/edit/${id}`)
+    }
+    const handleDelete = (id) => {
+        dispatch(deleteRecipe(id))
+    }
+
+    useEffect(() => {
+        dispatch(getAllRecipes())
+    }, [])
     return (
         <>
             <Container className="mt-3">
                 <h1>Home Page</h1>
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Recipe Title</th>
+                            <th>Instructions</th>
+                            <th>Ingredients</th>
+                            <th>Image</th>
+                            <th>Category</th>
+                            <th colSpan={2}>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            recipes.map((recipe) => (
+                                <tr key={recipe.id}>
+                                    <td>{recipe.id}</td>
+                                    <td>{recipe.title}</td>
+                                    <td>{recipe.instructions}</td>
+                                    <td>{recipe.ingredients}</td>
+                                    <td><img src={recipe.image} height={80} /></td>
+                                    <td>{recipe.category}</td>
+                                    <td><Button onClick={()=> handleEdit(recipe.id)}>Edit</Button></td>
+                                    <td><Button onClick={()=> handleDelete(recipe.id)}>Delete</Button></td>
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </Table>
             </Container>
         </>
     )
