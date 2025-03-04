@@ -1,13 +1,13 @@
 import { useEffect } from "react";
-import { Button, Container, Table } from "react-bootstrap";
+import { Button, Container, Spinner, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteRecipe, getAllRecipes } from "../services/actions/recipe.action";
+import { deleteRecipe, getAllRecipesAsync } from "../services/actions/recipe.action";
 import { useNavigate } from "react-router";
 
 const Home = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { recipes } = useSelector(state => state.recipeReducer);
+    const { recipes, isLoading } = useSelector(state => state.recipeReducer);
 
     const handleEdit = (id) => {
         navigate(`/edit/${id}`)
@@ -17,13 +17,13 @@ const Home = () => {
     }
 
     useEffect(() => {
-        dispatch(getAllRecipes())
+        dispatch(getAllRecipesAsync())
     }, [])
     return (
         <>
             <Container className="mt-3">
                 <h1>Home Page</h1>
-                <Table striped bordered hover>
+                {isLoading ? <Spinner className="spinner-border text-danger"></Spinner> : <Table striped bordered hover>
                     <thead>
                         <tr>
                             <th>#</th>
@@ -51,7 +51,7 @@ const Home = () => {
                             ))
                         }
                     </tbody>
-                </Table>
+                </Table>}
             </Container>
         </>
     )

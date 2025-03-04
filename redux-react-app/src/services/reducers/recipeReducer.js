@@ -2,7 +2,8 @@ const initalState = {
     recipes: JSON.parse(localStorage.getItem('recipes')) || [],
     recipe: null,
     isCreated: false,
-    isUpdate: false
+    isUpdate: false,
+    isLoading: false
 }
 
 
@@ -23,13 +24,14 @@ export const recipeReducer = (state = initalState, action) => {
                 ...state,
                 isCreated: false,
                 isUpdate: false,
-                recipes: allRecipes
+                recipes: allRecipes,
+                isLoading: false
             }
 
-        case "Delete_Recipe": 
-        let allData = JSON.parse(localStorage.getItem('recipes')) || []
-           let deletedRecipes =  allData.filter((data) => data.id != action.payload)
-           localStorage.setItem('recipes', JSON.stringify(deletedRecipes));
+        case "Delete_Recipe":
+            let allData = JSON.parse(localStorage.getItem('recipes')) || []
+            let deletedRecipes = allData.filter((data) => data.id != action.payload)
+            localStorage.setItem('recipes', JSON.stringify(deletedRecipes));
             return {
                 ...state,
                 isCreated: false,
@@ -44,12 +46,12 @@ export const recipeReducer = (state = initalState, action) => {
                 recipe: singleRecipe
             }
 
-        case "Update_Recipe": 
+        case "Update_Recipe":
             let data = JSON.parse(localStorage.getItem('recipes')) || []
             let updatedData = data.map((recipe) => {
-                if(recipe.id == action.payload.id){
+                if (recipe.id == action.payload.id) {
                     return action.payload
-                }else{
+                } else {
                     return recipe
                 }
             })
@@ -61,6 +63,11 @@ export const recipeReducer = (state = initalState, action) => {
                 recipes: updatedData
             }
 
+        case "Loading":
+            return {
+                ...state,
+                isLoading: true
+            }
         default:
             return state;
     }

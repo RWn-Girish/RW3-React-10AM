@@ -30,3 +30,19 @@ export const getRecipe = (id) => {
         payload: id
     }
 }
+export const loading = () => {
+    return {
+        type: "Loading",
+    }
+}
+
+// thunk middleware action (async) => return dispatch with normal action
+export const getAllRecipesAsync = () => {
+    return (dispatch) => {
+        dispatch(loading())
+
+        setTimeout(()=> {
+            dispatch(getAllRecipes())
+        }, 2000)
+    }
+}
