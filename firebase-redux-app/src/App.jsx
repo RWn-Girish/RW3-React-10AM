@@ -4,6 +4,7 @@ import Header from './components/Header'
 import Home from './components/Home'
 import AddRecipe from './components/AddRecipe'
 import EditRecipe from './components/EditRecipe'
+import ViewRecipe from './components/ViewRecipe'
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/add' element={<AddRecipe />} />
         <Route path='/edit/:id' element={<EditRecipe />} />
+        <Route path='/view/:id' element={<ViewRecipe />} />
         
       </Routes>
     </>

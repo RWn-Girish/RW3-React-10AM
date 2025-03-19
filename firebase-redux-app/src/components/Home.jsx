@@ -9,6 +9,9 @@ const Home = () => {
     const dispatch = useDispatch();
     const { recipes, isLoading } = useSelector(state => state.recipeReducer);
 
+    const handleView = (id) => {
+        navigate(`/view/${id}`)
+    }
     const handleEdit = (id) => {
         navigate(`/edit/${id}`)
     }
@@ -32,19 +35,20 @@ const Home = () => {
                             <th>Ingredients</th>
                             <th>Image</th>
                             <th>Category</th>
-                            <th colSpan={2}>Actions</th>
+                            <th colSpan={3}>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            recipes.map((recipe) => (
+                            recipes.map((recipe, i) => (
                                 <tr key={recipe.id}>
-                                    <td>{recipe.id}</td>
+                                    <td>{i + 1}</td>
                                     <td>{recipe.title}</td>
                                     <td>{recipe.instructions}</td>
                                     <td>{recipe.ingredients}</td>
                                     <td><img src={recipe.image} height={80} /></td>
                                     <td>{recipe.category}</td>
+                                    <td><Button onClick={()=> handleView(recipe.id)}>View</Button></td>
                                     <td><Button onClick={()=> handleEdit(recipe.id)}>Edit</Button></td>
                                     <td><Button onClick={()=> handleDelete(recipe.id)}>Delete</Button></td>
                                 </tr>

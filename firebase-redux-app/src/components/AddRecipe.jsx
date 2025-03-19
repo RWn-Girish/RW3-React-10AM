@@ -10,7 +10,6 @@ const AddRecipe = () => {
     const { isCreated } = useSelector(state => state.recipeReducer);
     const navigate = useNavigate();
     const [inputData, setInputData] = useState({
-        id: "",
         title: "",
         instructions: "",
         ingredients: "",
@@ -29,8 +28,8 @@ const AddRecipe = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         // console.log(inputData);
-        let id = Math.floor(Math.random() * 1000000).toString()
-        dispatch(AddRecipeAsync({ ...inputData, id }))
+        // let id = Math.floor(Math.random() * 1000000).toString()
+        dispatch(AddRecipeAsync({ ...inputData }))
     }
 
     useEffect(() => {
