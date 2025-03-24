@@ -7,6 +7,7 @@ import { useNavigate } from "react-router";
 const Home = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const {user} = useSelector(state => state.userReducer);
     const { recipes, isLoading } = useSelector(state => state.recipeReducer);
 
     const handleView = (id) => {
@@ -22,6 +23,12 @@ const Home = () => {
     useEffect(() => {
         dispatch(getAllRecipesAsync())
     }, [])
+
+    // useEffect(()=> {
+    //     if(!user){
+    //         navigate("/signin")
+    //     }
+    // }, [user])
     return (
         <>
             <Container className="mt-3">

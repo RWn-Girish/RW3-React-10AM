@@ -18,6 +18,22 @@ export const userReducer = (state = initalState, action) => {
                 ...state,
                 error: action.payload
             }
+        case "SIGNIN_SUCCESS":
+            return {
+                ...state,
+                user: action.payload
+            }
+        case "SIGNIN_REJECT":
+            return {
+                ...state,
+                error: action.payload
+            }
+        case "LOGOUT": {
+            return {
+                ...state,
+                user: null
+            }
+        }
 
 
         case "Loading":

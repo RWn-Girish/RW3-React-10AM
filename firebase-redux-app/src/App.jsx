@@ -6,6 +6,7 @@ import AddRecipe from './components/AddRecipe'
 import EditRecipe from './components/EditRecipe'
 import ViewRecipe from './components/ViewRecipe'
 import Register from './components/register'
+import Login from './components/Login'
 
 function App() {
 
@@ -13,7 +14,8 @@ function App() {
     <>
     <Header />
       <Routes>
-        <Route path='/register' element={<Register />} />
+        <Route path='/signup' element={<Register />} />
+        <Route path='/signin' element={<Login />} />
         <Route path='/' element={<Home />} />
         <Route path='/add' element={<AddRecipe />} />
         <Route path='/edit/:id' element={<EditRecipe />} />

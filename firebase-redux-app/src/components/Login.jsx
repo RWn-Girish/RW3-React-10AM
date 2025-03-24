@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router";
-import { registerUserAsync } from "../services/actions/auth.action";
+import { loginUserAsync } from "../services/actions/auth.action";
 
-const Register = () => {
+const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const {isCreated, error} = useSelector(state => state.userReducer)
+    const {user, error} = useSelector(state => state.userReducer)
   const [inputData, setInputData] = useState({
     email: "",
     password: "",
@@ -24,19 +24,18 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    dispatch(registerUserAsync(inputData))
+    dispatch(loginUserAsync(inputData))
   }
 
   useEffect(()=> {
-    if(isCreated){
+    if(user){
         navigate("/")
     }
-  }, [isCreated])
+  }, [user]);
   return (
     <>
       <Container>
-        <h2>Register User</h2>
+        <h2>Login User</h2>
         {error ? <p>{error}</p> : ""}
         <Form onSubmit={handleSubmit}>
           <Form.Group as={Row} className="mb-3">
@@ -67,13 +66,15 @@ const Register = () => {
               />
             </Col>
           </Form.Group>
-          <Button type="submit">SignUp</Button>
+          <Button type="submit">SignIn</Button>
         </Form>
-        <p>Already Account? <Link to={"/signin"}>Login</Link></p>
+        <br></br>
+        <Button >Google With Login</Button>
+        <p>Create a new Account? <Link to={"/signup"}>Register Now</Link></p>
       </Container>
     </>
   );
 };
 
 
-export default Register;
+export default Login;
