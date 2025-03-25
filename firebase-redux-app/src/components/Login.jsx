@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router";
-import { loginUserAsync } from "../services/actions/auth.action";
+import { loginUserAsync, loginWithGoogle } from "../services/actions/auth.action";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -25,6 +25,10 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(loginUserAsync(inputData))
+  }
+
+  const handleGoogleLogin = () => {
+    dispatch(loginWithGoogle());
   }
 
   useEffect(()=> {
@@ -69,7 +73,7 @@ const Login = () => {
           <Button type="submit">SignIn</Button>
         </Form>
         <br></br>
-        <Button >Google With Login</Button>
+        <Button onClick={handleGoogleLogin} >Google With Login</Button>
         <p>Create a new Account? <Link to={"/signup"}>Register Now</Link></p>
       </Container>
     </>
