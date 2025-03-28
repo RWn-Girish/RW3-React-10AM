@@ -3,7 +3,7 @@ import { Col, Container, Row, Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux'
 import { addRecipe, AddRecipeAsync } from "../services/actions/recipe.action";
 import { useNavigate } from "react-router";
-
+import uploadImage from "../services/imageUpload";
 
 const AddRecipe = () => {
     const dispatch = useDispatch();
@@ -22,6 +22,19 @@ const AddRecipe = () => {
         setInputData({
             ...inputData,
             [name]: value
+        })
+    }
+    
+    const handleImage = async(e) => {
+        let file = e.target.files[0];
+        // console.log(file)
+
+        if(!file)   
+            return;
+        let url = await uploadImage(file)
+        setInputData({
+            ...inputData,
+            image: `${url}`
         })
     }
 
@@ -71,7 +84,7 @@ const AddRecipe = () => {
                             Recipe Image
                         </Form.Label>
                         <Col sm="4">
-                            <Form.Control type="text" name="image" value={inputData.image} onChange={handleChanged} placeholder="Enter Image URL" />
+                            <Form.Control type="file" name="image"  onChange={handleImage} />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3">
