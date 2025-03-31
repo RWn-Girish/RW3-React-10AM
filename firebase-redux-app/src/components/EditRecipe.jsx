@@ -27,6 +27,19 @@ const EditRecipe = () => {
         })
     }
 
+    const handleImage = async(e) => {
+            let file = e.target.files[0];
+            // console.log(file)
+    
+            if(!file)   
+                return;
+            let url = await uploadImage(file)
+            setInputData({
+                ...inputData,
+                image: `${url}`
+            })
+        }
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -84,7 +97,7 @@ const EditRecipe = () => {
                             Recipe Image
                         </Form.Label>
                         <Col sm="4">
-                            <Form.Control type="text" name="image" value={inputData.image} onChange={handleChanged} placeholder="Enter Image URL" />
+                            <Form.Control type="file" name="image"  onChange={handleImage} />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3">
